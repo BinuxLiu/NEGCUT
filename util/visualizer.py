@@ -35,8 +35,11 @@ def save_npr_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256):
         im = util.tensor2im(im_data)
         image_name = '%s/%s.png' % (label, name)
         if label == 'fake_B':
-            if image_path.split("/")[-2] != "queries":
-                save_path = image_path.split(".jpg")[0] + "night.jpg"
+
+            image_path_parts = image_path.split("/")
+            if image_path_parts[-2] != "queries":
+                os.makedirs("/".join(image_path_parts[:-1]).replace("train", "train_n"), exist_ok = True)
+                save_path = image_path.replace("train", "train_n") #.split(".jpg")[0] + "night.jpg"
             else:
                 image_strings = image_path.split("queries")
                 dir_n = os.path.join(image_strings[0], 'queries_n')

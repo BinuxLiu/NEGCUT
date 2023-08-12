@@ -65,6 +65,10 @@ if __name__ == '__main__':
         save_npr_images(webpage, visuals, img_path, width=opt.display_winsize)
     webpage.save()  # save the HTML
     
-    if opt.dataroot.split("/")[-1] == "val":
-        os.rename(opt.dataroot + "/queries", opt.dataroot + "/queries_d")
-        os.rename(opt.dataroot + "/queries_n", opt.dataroot + "/queries")
+    queries_path = os.path.join(opt.dataroot, "queries")
+    if os.path.isdir(queries_path):
+        os.rename(queries_path, opt.dataroot + "/queries_d")
+        os.rename(opt.dataroot + "/queries_n", queries_path)
+    else:
+        os.rename(opt.dataroot, opt.dataroot + "_d")
+        os.rename(opt.dataroot + "_n", opt.dataroot)
